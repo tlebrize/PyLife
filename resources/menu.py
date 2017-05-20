@@ -3,7 +3,7 @@ import pyglet
 
 class TkMenu(scene.TkScene):
 
-	def __init__(self, world):
+	def __init__(self, world, label_x=10, label_y=500):
 		super(TkMenu, self).__init__(world)
 		assert self.menu_items
 		assert self.label
@@ -11,7 +11,7 @@ class TkMenu(scene.TkScene):
 		self.cursor = pyglet.text.Label(">", font_name="Times New Roman", font_size=36,
 			x=200, y=300, batch=self.text_batch)
 		self.cursor_pos = 0
-		self._generate_text()
+		self._generate_text(label_x, label_y)
 		self.key_handlers = {
 			pyglet.window.key.ESCAPE	: self._quit,
 			pyglet.window.key.UP		: lambda: self._move_cursor(1),
@@ -34,9 +34,9 @@ class TkMenu(scene.TkScene):
 		handler = self.key_handlers.get(button, lambda : None)
 		handler()
 
-	def _generate_text(self):
-		pyglet.text.Label(self.label, font_name="Times New Roman", font_size=56, x=10,
-			y=520, batch=self.text_batch)
+	def _generate_text(self, label_x, label_y):
+		pyglet.text.Label(self.label, font_name="Times New Roman", font_size=56,
+			x=label_x, y=label_y, batch=self.text_batch)
 		menu_texts = self.menu_items.keys()
 		for i, text in enumerate(menu_texts):
 			pyglet.text.Label(text, font_name="Times New Roman", font_size=36,
