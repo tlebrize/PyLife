@@ -31,7 +31,6 @@ class TkMenu(scene.TkScene):
 		self.world.window.clear()
 		self.text_batch.draw()
 
-
 	def _generate_text(self, label_x, label_y):
 		if self.label:
 			pyglet.text.Label(self.label, font_name="Times New Roman", font_size=56,
