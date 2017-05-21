@@ -20,10 +20,10 @@ class PLCell(object):
 		color = COLOR[self.selected][self.alive]
 		gl.glBegin(gl.GL_POLYGON)
 		gl.glColor3f(*color)
-		gl.glVertex2i((5 * x) + 50 * x - 25, (5 * y) + 50 * y - 25)
-		gl.glVertex2i((5 * x) + 50 * x - 25, (5 * y) + 50 * y + 25)
-		gl.glVertex2i((5 * x) + 50 * x + 25, (5 * y) + 50 * y + 25)
-		gl.glVertex2i((5 * x) + 50 * x + 25, (5 * y) + 50 * y - 25)
+		gl.glVertex2i((2 * x) + 20 * x - 10, (2 * y) + 20 * y - 10)
+		gl.glVertex2i((2 * x) + 20 * x - 10, (2 * y) + 20 * y + 10)
+		gl.glVertex2i((2 * x) + 20 * x + 10, (2 * y) + 20 * y + 10)
+		gl.glVertex2i((2 * x) + 20 * x + 10, (2 * y) + 20 * y - 10)
 		gl.glEnd()
 
 	def update(self):

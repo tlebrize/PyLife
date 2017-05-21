@@ -1,4 +1,4 @@
-import pyglet
+import pyglet, collections
 from resources.window	import TkWindow
 from resources.world	import TkWorld
 from resources.menu		import TkMenu
@@ -6,13 +6,17 @@ from resources.scene	import TkScene
 from resources.grid		import PLGrid
 
 class MainMenu(TkMenu):
-	def __init__(self, world):
+	def __init__(self, world, label_y=200):
 		self.label = "PyLife"
-		self.menu_items = {
-			"Start"		: self.start,
-			"Quit"		: self.quit
-		}
+		self.menu_items = collections.OrderedDict((
+			("Start"	, self.start),
+			("Clear"	, self.clear),
+			("Quit"		, self.quit)
+		))
 		super(MainMenu, self).__init__(world)
+
+	def clear(self):
+		self.world.scenes.get("life").grid.clear()
 
 	def start(self):
 		self.world.transition("life")
@@ -21,7 +25,7 @@ class MainMenu(TkMenu):
 		self._quit()
 
 class LifeScene(TkScene):
-	
+
 	def __init__(self, world):
 		super(LifeScene, self).__init__(world)
 		self.running = False
@@ -59,7 +63,7 @@ class LifeScene(TkScene):
 		self.grid.draw()
 
 def main():
-	window = TkWindow(825, 825, visible=False, caption="PyLife - Paused", style="dialog")
+	window = TkWindow(570, 570, visible=False, caption="PyLife - Paused", style="dialog")
 	world = TkWorld(window)
 	main_menu = MainMenu(world)
 	life = LifeScene(world)
