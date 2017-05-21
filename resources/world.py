@@ -4,6 +4,7 @@ class TkWorld(object):
 		self.window = window
 		self.current = None
 		self.scenes = {}
+		self.options = {}
 
 	def transition(self, scene):
 		if self.current:

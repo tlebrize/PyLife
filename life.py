@@ -56,11 +56,7 @@ class LifeScene(TkScene):
 
 	def quit(self):
 		self.running = False
-		self.world.transition("main_menu")
-
-	def on_key_press(self, button, modifiers):
-		handler = self.key_handlers.get(button, lambda: None)
-		handler()
+		self.world.transition("main")
 
 	def on_draw(self):
 		self.world.window.clear()
@@ -71,8 +67,8 @@ def main():
 	world = TkWorld(window)
 	main_menu = MainMenu(world)
 	life = LifeScene(world)
-	world.add_scenes({"main_menu": main_menu, "life": life})
-	world.transition("main_menu")
+	world.add_scenes({"main": main_menu, "life": life})
+	world.transition("main")
 	pyglet.clock.schedule_interval(life.update, 0.4)
 	pyglet.app.run()
 

@@ -10,6 +10,10 @@ class TkScene(object):
 	def entry(self):
 		pyglet.gl.glClearColor(0, 0, 0, 0)
 
+	def on_key_press(self, button, modifiers):
+		handler = self.key_handlers.get(button, lambda : None)
+		handler()
+
 	def load(self, window):
 		for event in TkScene.WINDOW_EVENTS:
 			if hasattr(self, event):
