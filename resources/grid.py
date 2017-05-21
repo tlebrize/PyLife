@@ -8,6 +8,7 @@ class PLGrid(object):
 		self.redraw()
 
 	def redraw(self):
+		print("redrawn!")
 		self.x = self.size // 2
 		self.y = self.size // 2
 		self.cells = []

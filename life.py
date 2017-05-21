@@ -41,6 +41,7 @@ class LifeScene(TkScene):
 			pyglet.window.key.UP : lambda : self.grid.move_cursor(0, 1),
 		}
 		self.fps_display = pyglet.clock.ClockDisplay()
+		pyglet.clock.schedule_interval(self.draw, 1/60)
 
 	def update(self, _):
 		if self.running:
@@ -70,7 +71,7 @@ class LifeScene(TkScene):
 		self.running = False
 		self.world.transition("main")
 
-	def on_draw(self):
+	def draw(self, _):
 		self.world.window.clear()
 		self.grid.draw()
 		self.fps_display.draw()
@@ -81,7 +82,7 @@ class Options(TkOption):
 		super(Options, self).__init__(world)
 
 def main():
-	window = TkWindow(600, 600, visible=False, caption="PyLife - Paused", style="dialog")
+	window = TkWindow(600, 600, visible=False, caption="PyLife - Paused")
 	world = TkWorld(window)
 	world.set_options([
 		["size", 25],

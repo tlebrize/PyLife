@@ -18,15 +18,23 @@ class PLCell(object):
 			((s * x) + s * 10 * x + s * 5, (s * y) + s * 10 * y + s * 5),
 			((s * x) + s * 10 * x + s * 5, (s * y) + s * 10 * y - s * 5)
 		)
+		self.square = gl.glGenLists(1)
+		gl.glNewList(self.square, gl.GL_COMPILE)
+		self.draw_square()
+		gl.glEndList()
 
-	def draw(self):
+	def draw_square(self):
 		gl.glBegin(gl.GL_POLYGON)
-		gl.glColor3f(*PLCell.COLOR[self.selected][self.alive])
 		gl.glVertex2i(*self.points[0])
 		gl.glVertex2i(*self.points[1])
 		gl.glVertex2i(*self.points[2])
 		gl.glVertex2i(*self.points[3])
 		gl.glEnd()
+
+	def draw(self):
+		gl.glColor3f(*PLCell.COLOR[self.selected][self.alive])
+		gl.glCallList(self.square)
+		gl.glFlush()
 
 	def update(self):
 		count = sum([cell.alive for cell in self.neighbours.values()])
