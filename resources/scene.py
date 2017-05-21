@@ -7,9 +7,6 @@ class TkScene(object):
 	def __init__(self, world):
 		self.world = world
 
-	def entry(self):
-		pyglet.gl.glClearColor(0, 0, 0, 0)
-
 	def on_key_press(self, button, modifiers):
 		handler = self.key_handlers.get(button, lambda : None)
 		handler()
@@ -18,7 +15,8 @@ class TkScene(object):
 		for event in TkScene.WINDOW_EVENTS:
 			if hasattr(self, event):
 				window.__setattr__(event, self.__getattribute__(event))
-		self.entry()
+		if hasattr(self, "entry"):
+			self.entry()
 
 	def unload(self, window):
 		for event in TkScene.WINDOW_EVENTS:

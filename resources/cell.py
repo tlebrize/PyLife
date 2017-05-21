@@ -1,29 +1,31 @@
 from pyglet import gl
 
-COLOR = {
-	True: {True: (0.3, 0.3, 0.3), False: (0.7, 0.7, 0.7)},
-	False: {True: (0.0, 0.0, 0.0), False: (1.0, 1.0, 1.0)}
-}
-
 class PLCell(object):
+	
+	COLOR = {
+		True: {True: (0.3, 0.3, 0.3), False: (0.7, 0.7, 0.7)},
+		False: {True: (0.0, 0.0, 0.0), False: (1.0, 1.0, 1.0)}
+	}
 
-	def __init__(self, x, y):
-		self.x = x
-		self.y = y
+	def __init__(self, x, y, s):
 		self.selected = False
 		self.alive = False
 		self.alive_next = False
 		self.neighbours = {}
+		self.points = (
+			((s * x) + s * 10 * x - s * 5, (s * y) + s * 10 * y - s * 5),
+			((s * x) + s * 10 * x - s * 5, (s * y) + s * 10 * y + s * 5),
+			((s * x) + s * 10 * x + s * 5, (s * y) + s * 10 * y + s * 5),
+			((s * x) + s * 10 * x + s * 5, (s * y) + s * 10 * y - s * 5)
+		)
 
 	def draw(self):
-		x, y = self.x, self.y
-		color = COLOR[self.selected][self.alive]
 		gl.glBegin(gl.GL_POLYGON)
-		gl.glColor3f(*color)
-		gl.glVertex2i((2 * x) + 20 * x - 10, (2 * y) + 20 * y - 10)
-		gl.glVertex2i((2 * x) + 20 * x - 10, (2 * y) + 20 * y + 10)
-		gl.glVertex2i((2 * x) + 20 * x + 10, (2 * y) + 20 * y + 10)
-		gl.glVertex2i((2 * x) + 20 * x + 10, (2 * y) + 20 * y - 10)
+		gl.glColor3f(*PLCell.COLOR[self.selected][self.alive])
+		gl.glVertex2i(*self.points[0])
+		gl.glVertex2i(*self.points[1])
+		gl.glVertex2i(*self.points[2])
+		gl.glVertex2i(*self.points[3])
 		gl.glEnd()
 
 	def update(self):

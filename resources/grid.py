@@ -2,13 +2,17 @@ from .cell import PLCell
 
 class PLGrid(object):
 
-	def __init__(self):
-		self.size = 25
-		self.x = 12
-		self.y = 12
+	def __init__(self, size, scale):
+		self.size = size
+		self.scale = scale
+		self.redraw()
+
+	def redraw(self):
+		self.x = self.size // 2
+		self.y = self.size // 2
 		self.cells = []
 		for x in range(1, self.size + 1):
-			self.cells.append([PLCell(x, y) for y in range(1, self.size + 1)])
+			self.cells.append([PLCell(x, y, self.scale) for y in range(1, self.size + 1)])
 		for x, line in enumerate(self.cells):
 			for y in range(0, self.size):
 				self.cells[x][y].neighbours = {

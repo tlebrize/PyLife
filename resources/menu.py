@@ -32,10 +32,10 @@ class TkMenu(scene.TkScene):
 		self.text_batch.draw()
 
 
-	def _generate_text(self):
+	def _generate_text(self, label_x, label_y):
 		if self.label:
 			pyglet.text.Label(self.label, font_name="Times New Roman", font_size=56,
-							x=10, y=520, batch=self.text_batch)
+						x=label_x, y=label_y, batch=self.text_batch)
 
 		menu_texts = self.menu_items.keys()
 		for i, text in enumerate(menu_texts):
