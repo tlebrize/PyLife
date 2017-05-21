@@ -18,6 +18,7 @@ class MainMenu(TkMenu):
 		super(MainMenu, self).__init__(world)
 
 	def entry(self):
+		self.world.window.set_caption("PyLife")
 		pyglet.gl.glClearColor(0, 0, 0, 0)
 		self.world.window.set_size(600, 600)
 		self.world.window.center()
@@ -48,6 +49,7 @@ class LifeScene(TkScene):
 
 	def entry(self):
 		self.running = False
+		self.world.window.set_caption("PyLife - Paused")
 		if self.world.scale != self.grid.scale or self.world.size != self.grid.size:
 			self.grid.scale = self.world.scale
 			self.grid.size = self.world.size
@@ -76,19 +78,23 @@ class LifeScene(TkScene):
 class Options(TkOption):
 
 	def __init__(self, world):
+		world.set_options([
+			["size", 25, 1, 100],
+			["scale", 2, 1, 50],
+			["speed", 3, 0, 5]
+		])
 		super(Options, self).__init__(world)
 
+	def entry(self):
+		self.world.window.set_caption("PyLife")
+
+
 def main():
-	window = TkWindow(600, 600, visible=False, caption="PyLife - Paused")
+	window = TkWindow(600, 600, visible=False, caption="PyLife")
 	world = TkWorld(window)
-	world.set_options([
-		["size", 25, 1, 100],
-		["scale", 2, 1, 50],
-		["speed", 3, 0, 5]
-	])
 	main_menu = MainMenu(world)
-	life = LifeScene(world)
 	options = Options(world)
+	life = LifeScene(world)
 	world.add_scenes({"main": main_menu, "life": life, "options": options})
 	world.transition("main")
 	pyglet.app.run()
