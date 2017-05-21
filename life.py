@@ -1,12 +1,7 @@
-import pyglet, collections
-from resources.window	import TkWindow
-from resources.world	import TkWorld
-from resources.menu		import TkMenu
-from resources.scene	import TkScene
-from resources.option	import TkOption
-from resources.grid		import PLGrid
+import pyglet, collections, tkengine
+from resources.grid import PLGrid
 
-class MainMenu(TkMenu):
+class MainMenu(tkengine.TkMenu):
 	def __init__(self, world, label_y=200):
 		self.label = "PyLife"
 		self.menu_items = collections.OrderedDict((
@@ -23,7 +18,7 @@ class MainMenu(TkMenu):
 		self.world.window.set_size(600, 600)
 		self.world.window.center()
 
-class LifeScene(TkScene):
+class LifeScene(tkengine.TkScene):
 
 	SPEED = [1.0, 0.5, 0.3, 0.1, 0.05, 0.01]
 
@@ -75,7 +70,7 @@ class LifeScene(TkScene):
 		self.world.window.clear()
 		self.grid.draw()
 
-class Options(TkOption):
+class Options(tkengine.TkOption):
 
 	def __init__(self, world):
 		world.set_options([
@@ -90,8 +85,8 @@ class Options(TkOption):
 
 
 def main():
-	window = TkWindow(600, 600, visible=False, caption="PyLife")
-	world = TkWorld(window)
+	window = tkengine.TkWindow(600, 600, visible=False, caption="PyLife")
+	world = tkengine.TkWorld(window)
 	main_menu = MainMenu(world)
 	options = Options(world)
 	life = LifeScene(world)
