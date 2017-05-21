@@ -19,12 +19,12 @@ class MainMenu(TkMenu):
 
 	def entry(self):
 		pyglet.gl.glClearColor(0, 0, 0, 0)
-		self.world.window.center()
 		self.world.window.set_size(600, 600)
+		self.world.window.center()
 
 class LifeScene(TkScene):
 
-	SPEED = [0.01, 0.05, 0.1, 0.3, 0.5, 1.0]
+	SPEED = [1.0, 0.5, 0.3, 0.1, 0.05, 0.01]
 
 	def __init__(self, world):
 		super(LifeScene, self).__init__(world)
@@ -40,8 +40,7 @@ class LifeScene(TkScene):
 			pyglet.window.key.DOWN : lambda : self.grid.move_cursor(0, -1),
 			pyglet.window.key.UP : lambda : self.grid.move_cursor(0, 1),
 		}
-		self.fps_display = pyglet.clock.ClockDisplay()
-		pyglet.clock.schedule_interval(self.draw, 1/60)
+		pyglet.clock.schedule_interval(self.draw, 1 / 60)
 
 	def update(self, _):
 		if self.running:
@@ -59,7 +58,6 @@ class LifeScene(TkScene):
 		self.world.window.center()
 		pyglet.clock.schedule_interval(self.update, LifeScene.SPEED[self.world.speed])
 		pyglet.gl.glClearColor(0.42, 0.42, 0.42, 0)
-		print(LifeScene.SPEED[self.world.speed])
 
 	def pause(self):
 		self.running = not self.running
@@ -74,7 +72,6 @@ class LifeScene(TkScene):
 	def draw(self, _):
 		self.world.window.clear()
 		self.grid.draw()
-		self.fps_display.draw()
 
 class Options(TkOption):
 
@@ -85,9 +82,9 @@ def main():
 	window = TkWindow(600, 600, visible=False, caption="PyLife - Paused")
 	world = TkWorld(window)
 	world.set_options([
-		["size", 25],
-		["scale", 2],
-		["speed", 3]
+		["size", 25, 1, 100],
+		["scale", 2, 1, 50],
+		["speed", 3, 0, 5]
 	])
 	main_menu = MainMenu(world)
 	life = LifeScene(world)

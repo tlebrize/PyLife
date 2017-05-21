@@ -33,10 +33,11 @@ class TkOption(scene.TkScene):
 		self.text_batch.draw()
 
 	def _update_value(self, value):
-		if isinstance(self.updated_options[self.cursor_pos], bool):
-			self.updated_options[self.cursor_pos][1] = not self.updated_options[self.cursor_pos]
-		else:
-			self.updated_options[self.cursor_pos][1] += value
+		current = self.updated_options[self.cursor_pos][1]
+		min = self.updated_options[self.cursor_pos][2]
+		max = self.updated_options[self.cursor_pos][3]
+		if min <= current + value <= max:
+			self.updated_options[self.cursor_pos][1] = current + value
 		for item in self.item_list:
 			item.delete()
 		self._generate_text()
